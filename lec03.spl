@@ -1,0 +1,198 @@
+CREATE TABLE Movies(
+   title VARCHAR(20) ,
+   year INT,
+   length INT,
+   gerne VARCHAR(20),
+   studioName VARCHAR(20),
+   producer CHAR(20) PRIMARY KEY
+);
+
+INSERT INTO movies VALUES ('Star Wars',1997,124, 'sciFi','Fox','12345');
+INSERT INTO movies VALUES ('Galaxy Quest',1999,104, 'comedy','DreamWorks','67890');
+INSERT INTO movies VALUES ("'Wayne's Wordl",1992,95, 'comedy','Paramout','99999');
+
+CREATE TABLE Starsln(
+   movieTitle VARCHAR(20),
+   movieYear INT,
+   startName CHAR(20) PRIMARY KEY
+);
+
+insert into Starsln values('Star Wars',1977,'Carrie Fisher');
+insert into Starsln values('Star Wars',1977,'Mark Hamill');
+insert into Starsln values('Star Wars',1977,'Harrison Ford');
+insert into Starsln values('Gone With the Wind',1939,'Vivien Leigh');
+insert into Starsln values('Wayne’s World',1992,'Dana Carvey');
+insert into Starsln values ('Wayne’s World',1992,'Mike Meyers');
+
+Create table MovieStar(
+   name CHAR(20),
+   address Char(20) ,
+   gender Char(20),
+   birthdate int
+);
+
+insert into MovieStar values('Carrie Fisher','123 Maple St. Hollywood','F','9/9/99');
+insert into MovieStar values('Mark Hamill','456 Oak Rd. Brentwood','M','8/8/88');
+insert into MovieStar values('Tom Hanks','Cherry Ln.','M','6/6/66');
+insert into MovieStar values('Harrison Ford','789 Palm Dr. Beverly Hills','M','7/7/77');
+
+Create table MovieExec(
+  name Char(20),
+  address char(20),
+  cert int primary key,
+  netWorth int
+);
+
+INSERT INTO MovieExec VALUES ('Mary Tyler Moore','Maple St.',12345, 100);
+INSERT INTO MovieExec VALUES ('Tom Hanks','Cherry Ln.',9982,NULL);
+INSERT INTO MovieExec VALUES ('George Lucas','Oak Rd.',23456, 200);
+
+
+create table Studio(
+   name char(20),
+   address char(20),
+   pres int primary key
+   
+);
+   
+INSERT INTO Studio VALUES ('Fox','Hollywood', 1298);
+INSERT INTO Studio VALUES ('Disney','Buena Vista', 3789);
+INSERT INTO Studio VALUES ('Paramount','Hollywood', 1129);
+INSERT INTO Studio VALUES ('MGM','Hollywood', 9982);
+
+--- a) Ai là diễn viên nữ chính đã đóng phim Stars War?
+select name from MovieStar,Starsln
+where movieTitle='Star Wars' and startName=name and gender='F';
+
+--- b) Những diễn viên nào xuất hiện trong các bộ phim sản xuất bởi Paramount năm 1992?
+select startName from Starsln, Studio,Movies
+where name='Paramount' and year=1992 and movieYear=1992;
+
+--- c) Ai là chủ tịch của hãng phim MGM?
+select pres,MovieExec.name from Studio,MovieExec
+where Studio.name='MGM' and pres=cert ; 
+
+--- ! d) Những bộ phim nào dài hơn phim Galaxy Quest?
+select title from Movies
+Where length>104;
+
+
+--- ! e) Những đạo diễn nào thu nhập cao hơn Mary Tyler Moore?
+select name from MovieExec
+where netWorth>100 or netWorth=NULL;
+
+--EXERCISE 2. Cho CSDL về thiết bị công nghệ như bên dưới. Dữ liệu mẫu trong các file .csv tương ứng.
+
+--- Product(maker,model, type): Bảng Product chứa thông tin về các sản phẩm
+--- PC(model, speed, ram, hd, price): Bảng PC chứa thông tin về máy tính PC
+--- Laptop(model, speed, ram, hd, screen, price): Bảng Laptop chứa thông tin về máy tính xách tay
+--- Printer(model, color, type, price): Bảng Printer chứa thông tin về máy in
+
+--- Viết các câu truy vấn sau:
+
+create table Product(
+   maker char(20),
+   model int,
+   type char (20)
+);
+
+Insert into Product values('A',1001,'pc');
+Insert into Product values('A',1002,'pc');
+Insert into Product values('A',1003,'pc');
+Insert into Product values('A',2004,'laptop');
+Insert into Product values('A',2005,'laptop');
+Insert into Product values('A',2006,'laptop');
+Insert into Product values('b',1004,'pc');
+Insert into Product values('B',1005,'pc');
+Insert into Product values('B',1006,'pc');
+Insert into Product values('B',2007,'laptop');
+Insert into Product values('C',1007,'pc');
+Insert into Product values('D',1008,'pc');
+Insert into Product values('D',1009,'pc');
+Insert into Product values('D',1010,'pc');
+Insert into Product values('D',3004,'printer');
+Insert into Product values('D',3005,'printer');
+
+Insert into Product values('E',1011,'pc');
+Insert into Product values('E',1012,'pc');
+Insert into Product values('E',1013,'pc');
+
+Insert into Product values('E',2001,'laptop');
+Insert into Product values('E',2002,'laptop');
+Insert into Product values('E',2003,'laptop');
+
+Insert into Product values('E',3001,'printer');
+Insert into Product values('E',3002,'printer');
+Insert into Product values('E',3003,'printer');
+
+Insert into Product values('F',2008,'laptop');
+Insert into Product values('F',2009,'laptop');
+Insert into Product values('G',2010,'laptop');
+
+Insert into Product values('G',3006,'printer');
+Insert into Product values('G',3007,'printer');
+
+
+create table PC(
+    model int,
+    speed float,
+    ram int,
+    hd int,
+    price int
+);
+
+insert into PC values(1001,2.66,1024,250,2114);
+insert into PC values(1003,1.42,512,80,478);
+insert into PC values(1004,2.80,1024,250,649);
+insert into PC values(1005,3.20,512,250,630);
+insert into PC values(1006,3.20,1024,320,1049);
+insert into PC values(1007,2.20,1024,200,510);
+insert into PC values(1008,2.20,2048,250,770);
+insert into PC values(1009,2.00,1024,250,650);
+insert into PC values(1009,2.00,1024,250,650);
+insert into PC values(1013,3.06,512,80,529);
+
+create table Laptop(
+   model int,
+   speed float,
+   ram int,
+   hd int,
+   screen float,
+   price int
+);
+
+insert into Laptop values(2010,2.00,2048,160,15.4,2300
+);
+
+create table Printer(
+  model int,
+  color char(20),
+  type char(20),
+  price int
+);
+
+insert into Printer values(3002,'FALSE','laser',239); 
+insert into Printer values(3003,'TRUE','laser',899); 
+insert into Printer values(3004,'TRUE','ink-jet',120); 
+insert into Printer values(3005,'FALSE','laser',120); 
+insert into Printer values(3006,'TRUE','nk-jet',100);
+insert into Printer values(3007,'TRUE','laser',200);
+--- a) Tìm nhà sản xuất và tốc độ của các laptop có ổ cứng ít nhất 30 GB.
+select maker,laptop.speed from Product, Laptop
+where laptop.ram>=30 and laptop.model=Product.model;
+--- b) Tìm model và giá của tất cả các sản phẩm (các loại) được làm bởi nhà sản xuất B 
+---	   (Gợi ý: Dùng toán tử UNION)
+select laptop.model, laptop.price from Laptop,Product
+where Product.maker='B' and Product.model=laptop.model;
+
+--- c) Tìm những nhà sản xuất có bán Laptop nhưng không bán PC.
+---    (Gợi ý: Dùng toán tử EXCEPT)
+
+select maker from Product
+where Product.type='laptop' except select maker from Product
+where  Product.type='pc';
+
+--- ! d) Tìm những kích thước ổ cứng xuất hiện ở 2 hoặc nhiều mẫu PC khác nhau.
+---    (Gợi ý: Dùng SEFL-JOIN)
+
+
